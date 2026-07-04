@@ -37,6 +37,7 @@
   --font-body:    'DM Sans', sans-serif;
 
   --maxw: 1180px;
+  --nav-h: 72px;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -242,16 +243,16 @@ img, svg { display: block; }
 }
 .hero-inner {
   position: relative; z-index: 10;
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex; align-items: flex-start; justify-content: center;
   width: 100%; max-width: var(--maxw); margin: 0 auto; height: 100%;
-  padding: 72px 5% 0; gap: 40px;
+  padding: calc(var(--nav-h) + 56px) 5% 56px; gap: 40px;
 }
 .hero-left { flex: 0 0 55%; max-width: 55%; padding-right: 20px; }
 
 .headline {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(48px, 5.5vw, 86px);
+  font-size: clamp(44px, 4.8vw, 76px);
   line-height: 1.00;
   letter-spacing: -0.01em;
   color: var(--branco);
@@ -484,7 +485,7 @@ img, svg { display: block; }
       rgba(10,25,41,0.50) 68%, rgba(10,25,41,0.22) 85%, rgba(10,25,41,0.10) 100%);
   }
   .hero-bg { background-image: url('/images/hero-mobile.jpg'); background-position: center 35%; }
-  .hero-inner { flex-direction: column; align-items: flex-start; justify-content: flex-start; padding: 96px 6% 40px; gap: 0; }
+  .hero-inner { flex-direction: column; align-items: flex-start; justify-content: flex-start; padding: calc(var(--nav-h) + 32px) 6% 40px; gap: 0; }
   .hero-left { flex: none; max-width: 100%; padding-right: 0; }
   .headline { font-size: clamp(42px, 11vw, 56px); margin-bottom: 18px; }
   .subheadline { font-size: 0.9375rem; margin-bottom: 28px; max-width: 100%; }
