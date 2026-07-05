@@ -845,6 +845,10 @@ img, svg { display: block; }
 </footer>
 
 <script>
+/* ── SCROLL RESTORATION ──────────────────────────────── */
+if (history.scrollRestoration) history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
 /* ── REDUCED MOTION FLAG ─────────────────────────────── */
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
