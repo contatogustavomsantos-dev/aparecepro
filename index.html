@@ -260,7 +260,9 @@ img, svg { display: block; }
   margin-bottom: 24px;
 }
 .headline .switcher-wrap { color: var(--verde); display: inline-block; }
-.headline .switcher-inner { display: inline-block; transition: opacity 0.3s ease, transform 0.3s ease; }
+.headline .switcher-inner { display: inline-block; }
+.headline .switcher-inner::after { content: '|'; color: var(--verde); animation: cursorBlink 0.9s step-end infinite; }
+@keyframes cursorBlink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
 
 .subheadline {
   font-family: var(--font-body);
@@ -860,21 +862,37 @@ if (scene && !reduceMotion) {
   });
 }
 
-/* ── TEXT SWITCHER ───────────────────────────────────── */
+/* ── TEXT SWITCHER — typewriter ──────────────────────── */
 const words = ['mecânico','clínica','salão','pet shop','restaurante','oficina','fisioterapeuta'];
-let current = 0;
+let wordIndex = 0;
+let charIndex = words[0].length;
+let deleting = false;
 const switcher = document.getElementById('switcher');
 if (switcher && !reduceMotion) {
-  setInterval(() => {
-    switcher.style.opacity = '0';
-    switcher.style.transform = 'translateY(6px)';
-    setTimeout(() => {
-      current = (current + 1) % words.length;
-      switcher.textContent = words[current];
-      switcher.style.opacity = '1';
-      switcher.style.transform = 'translateY(0)';
-    }, 300);
-  }, 2500);
+  function tick() {
+    const word = words[wordIndex];
+    if (!deleting) {
+      charIndex++;
+      switcher.textContent = word.slice(0, charIndex);
+      if (charIndex === word.length) {
+        deleting = true;
+        setTimeout(tick, 1800);
+        return;
+      }
+      setTimeout(tick, 70 + Math.random() * 50);
+    } else {
+      charIndex--;
+      switcher.textContent = word.slice(0, charIndex);
+      if (charIndex === 0) {
+        deleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
+        setTimeout(tick, 350);
+        return;
+      }
+      setTimeout(tick, 40);
+    }
+  }
+  setTimeout(() => { deleting = true; tick(); }, 2200);
 }
 
 /* ── NAV: scroll state ───────────────────────────────── */
